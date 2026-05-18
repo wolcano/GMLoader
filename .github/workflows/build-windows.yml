@@ -27,12 +27,12 @@ jobs:
       #- name: "Build project"
       #  run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
         
+      - run: pwd
+      - run: dir "${{ env.PROJECT_PATH }}"
+      - run: dir .
+      - run: dir *.*
       - name: "Pack project"
         run: |
-          pwd
-          dir "${{ env.PROJECT_PATH }}"
-          dir .
-          dir *.*
           dotnet build "${{ env.PROJECT_PATH }}" --configuration Release
           dotnet pack "${{ env.PROJECT_PATH }}" -p:PackageVersion=4.0.5 --no-restore --no-build --configuration Release --include-symbols --output lib\Standart.Hash.xxHash.dll
           dir lib\Standart.Hash.xxHash.dll
