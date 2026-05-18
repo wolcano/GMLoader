@@ -21,11 +21,12 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: "Restore packages"
-        run: dotnet restore ${{ env.PROJECT_PATH }}
+      #- name: "Restore packages"
+      #  run: dotnet restore ${{ env.PROJECT_PATH }}
         
       - name: "Build project"
-        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+        #run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release
         
       - name: "Pack project"
         run: |
