@@ -24,16 +24,16 @@ jobs:
       #- name: "Restore packages"
       #  run: dotnet restore ${{ env.PROJECT_PATH }}
         
-      - name: "Build project"
-        #run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
-        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release
+      #- name: "Build project"
+      #  run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
         
       - name: "Pack project"
         run: |
           cd
           dir ${{ env.PROJECT_PATH }}
           dir *.*
-          dotnet pack ${{ env.PROJECT_PATH }} -p:PackageVersion=4.0.5 --no-restore --no-build --configuration Release --include-symbols --output lib\Standart.Hash.xxHash.dll
+          dotnet build "${{ env.PROJECT_PATH }}" --configuration Release
+          dotnet pack "${{ env.PROJECT_PATH }}" -p:PackageVersion=4.0.5 --no-restore --no-build --configuration Release --include-symbols --output lib\Standart.Hash.xxHash.dll
           dir lib\Standart.Hash.xxHash.dll
 
       - name: Setup MSBuild and add to PATH
