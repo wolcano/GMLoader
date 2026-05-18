@@ -34,8 +34,9 @@ jobs:
       - name: "Pack project"
         run: |
           dotnet build "${{ env.PROJECT_PATH }}" --configuration Release
-          dotnet pack "${{ env.PROJECT_PATH }}" -p:PackageVersion=4.0.5 --no-restore --no-build --configuration Release --include-symbols --output lib\Standart.Hash.xxHash.dll
-          dir lib\Standart.Hash.xxHash.dll
+          #rem dotnet pack "${{ env.PROJECT_PATH }}" -p:PackageVersion=4.0.5 --no-restore --no-build --configuration Release --include-symbols --output lib\Standart.Hash.xxHash.dll
+          copy "GMLoader - xxHash\bin\Release\net8.0\GMLoader - xxHash.dll" "GMLoader\lib\Standart.Hash.xxHash.dll"
+          dir GMLoader\lib\Standart.Hash.xxHash.dll
 
       - name: Setup MSBuild and add to PATH
         uses: microsoft/setup-msbuild@v1.0.0
@@ -44,7 +45,7 @@ jobs:
       - name: Run MSBuild
         id: run_msbuild
         run: |
-          msbuild .\GMLoader\GMLoader.sln  /t:clean /p:Configuration=Debug
+          #rem msbuild .\GMLoader\GMLoader.sln  /t:clean /p:Configuration=Debug
           nuget restore .\GMLoader\GMLoader.sln
           msbuild .\GMLoader\GMLoader.sln  /t:build /p:Configuration=Debug
 
