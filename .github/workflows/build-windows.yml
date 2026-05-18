@@ -10,10 +10,36 @@ jobs:
     runs-on: windows-latest
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      PROJECT_PATH: "GMLoader - xxHash\\GMLoader - xxHash.csproj"
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: "Install Dotnet"
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: "Restore packages"
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+        
+      - name: "Build project"
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+        
+      - name: "Pack project"
+        run: |
+          cd
+          dir ${{ env.PROJECT_PATH }}
+          dir *.*
+          dotnet pack ${{ env.PROJECT_PATH }} -p:PackageVersion=4.0.5 --no-restore --no-build --configuration Release --include-symbols --output lib\Standart.Hash.xxHash.dll
+          dir lib\Standart.Hash.xxHash.dll
+
+      - name: Run MSBuild
+        id: run_msbuild
+        run: |
+          msbuild .\GMLoader\GMLoader.sln  /t:clean /p:Configuration=Debug
+
       - name: Setup MSBuild and add to PATH
         uses: microsoft/setup-msbuild@v1.0.0
         id: setup_msbuild
