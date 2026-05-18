@@ -35,11 +35,6 @@ jobs:
           dotnet pack ${{ env.PROJECT_PATH }} -p:PackageVersion=4.0.5 --no-restore --no-build --configuration Release --include-symbols --output lib\Standart.Hash.xxHash.dll
           dir lib\Standart.Hash.xxHash.dll
 
-      - name: Run MSBuild
-        id: run_msbuild
-        run: |
-          msbuild .\GMLoader\GMLoader.sln  /t:clean /p:Configuration=Debug
-
       - name: Setup MSBuild and add to PATH
         uses: microsoft/setup-msbuild@v1.0.0
         id: setup_msbuild
