@@ -28,7 +28,7 @@ jobs:
       #  run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
         
       - name: "Pack project"
-        run: 
+        run: |
           pwd
           dir "${{ env.PROJECT_PATH }}"
           dir .
