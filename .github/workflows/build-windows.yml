@@ -45,8 +45,11 @@ jobs:
       - name: Run MSBuild
         id: run_msbuild
         run: |
-          #rem msbuild .\GMLoader\GMLoader.sln  /t:clean /p:Configuration=Debug
+          echo "Cleaning..."
+          msbuild .\GMLoader\GMLoader.sln  /t:clean /p:Configuration=Debug
+          echo "Installing dependencies..."
           nuget restore .\GMLoader\GMLoader.sln
+          echo "Building GMLoader"
           msbuild .\GMLoader\GMLoader.sln  /t:build /p:Configuration=Debug
 
       #- name: Upload built exe
